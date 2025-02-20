@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Business.Dtos;
+﻿namespace Business.Dtos;
 
 public class ProjectRegistrationForm
 {
@@ -21,4 +19,6 @@ public class ProjectRegistrationForm
     public int CustomerId { get; set; }
 
     public int EmployeeId { get; set; }
+
+    public CustomerRegistrationForm Customer { get; set; } = null!;
 }

@@ -40,9 +40,9 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
         return customers ?? [];
     }
 
-    public async Task<Customer> GetCustomerAsync(Expression<Func<CustomerEntity, bool>> expression)
+    public async Task<Customer> GetCustomerAsync(string customerName)
     {
-        var entity = await _customerRepository.GetAsync(expression);
+        var entity = await _customerRepository.GetAsync(x => x.CustomerName == customerName);
         var customer = CustomerFactory.Create(entity);
         return customer ?? null!;
     }

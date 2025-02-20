@@ -11,6 +11,6 @@ public interface ICustomerService
     Task<bool> CustomerExistsAsync(Expression<Func<CustomerEntity, bool>> expression);
     bool DeleteCustomer(Customer customer);
     Task<IEnumerable<Customer>> GetAllCustomersAsync();
-    Task<Customer> GetCustomerAsync(Expression<Func<CustomerEntity, bool>> expression);
+    Task<Customer> GetCustomerAsync(string customerName);
     bool UpdateCustomer(Customer customer);
 }
