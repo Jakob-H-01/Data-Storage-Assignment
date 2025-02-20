@@ -69,31 +69,35 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         return await _dbSet.FirstOrDefaultAsync(expression) ?? null!;
     }
 
-    public virtual void Update(TEntity updatedEntity)
+    public virtual bool Update(TEntity updatedEntity)
     {
-        if (updatedEntity == null) return;
+        if (updatedEntity == null) return false;
 
         try
         {
             _dbSet.Update(updatedEntity);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Could not update {nameof(TEntity)} entity | {ex.Message}");
+            return false;
         }
     }
 
-    public virtual void Delete(TEntity entity)
+    public virtual bool Delete(TEntity entity)
     {
-        if (entity == null) return;
+        if (entity == null) return false;
 
         try
         {
             _dbSet.Remove(entity);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Could not delete {nameof(TEntity)} entity | {ex.Message}");
+            return false;
         }
     }
 
