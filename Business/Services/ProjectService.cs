@@ -13,7 +13,7 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
     private readonly IEmployeeService _employeeService = employeeService;
     private readonly ICustomerService _customerService = customerService;
 
-    public async Task CreateProjectAsync(ProjectRegistrationForm form)
+    public async Task<bool> CreateProjectAsync(ProjectRegistrationForm form)
     {
         var status = await _statusService.GetStatusAsync(form.Status.StatusName);
         if (status == null)
@@ -63,11 +63,16 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
                 await _projectRepository.CreateAsync(entity);
                 await _projectRepository.SaveAsync();
                 await _projectRepository.CommitTransactionAsync();
+                return true;
             }
             catch
             {
                 await _projectRepository.RollbackTransactionAsync();
+                return false;
             }
         }
+
+        else
+            return false;
     }
 }

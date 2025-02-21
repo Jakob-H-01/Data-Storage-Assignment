@@ -4,5 +4,5 @@ namespace Business.Interfaces;
 
 public interface IProjectService
 {
-    Task CreateProjectAsync(ProjectRegistrationForm form);
+    Task<bool> CreateProjectAsync(ProjectRegistrationForm form);
 }
