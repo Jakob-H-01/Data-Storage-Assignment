@@ -17,9 +17,20 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         {
             var result = await _projectService.CreateProjectAsync(form);
             if (result)
-                return Ok();
+                return Ok("Project created successfully.");
         }
 
         return BadRequest();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var projects = await _projectService.GetAllProjectsAsync();
+
+        if (projects != null)
+            return Ok(projects);
+
+        return NotFound();
     }
 }

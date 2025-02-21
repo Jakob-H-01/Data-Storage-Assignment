@@ -1,6 +1,7 @@
 ﻿using Business.Dtos;
 using Business.Factories;
 using Business.Interfaces;
+using Business.Models;
 using Data.Interfaces;
 
 namespace Business.Services;
@@ -74,5 +75,12 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
 
         else
             return false;
+    }
+
+    public async Task<IEnumerable<Project>> GetAllProjectsAsync()
+    {
+        var entities = await _projectRepository.GetAllAsync();
+        var projects = entities.Select(ProjectFactory.Create);
+        return projects ?? [];
     }
 }
