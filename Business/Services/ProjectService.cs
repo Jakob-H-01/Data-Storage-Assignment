@@ -96,9 +96,21 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
         return project ?? null!;
     }
 
+    public async Task UpdateProject(Project project)
+    {
+        _projectRepository.Update(ProjectFactory.Create(project));
+        await _projectRepository.SaveAsync();
+    }
+
     public async Task DeleteProject(Project project)
     {
         _projectRepository.Delete(ProjectFactory.Create(project));
         await _projectRepository.SaveAsync();
+    }
+
+    public async Task<bool> ProjectExistsAsync(Expression<Func<ProjectEntity, bool>> expression)
+    {
+        var result = await _projectRepository.ExistsAsync(expression);
+        return result;
     }
 }

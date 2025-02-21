@@ -1,5 +1,6 @@
 ﻿using Business.Dtos;
 using Business.Interfaces;
+using Business.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -58,5 +59,18 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
             return NoContent();
 
         return Problem();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, Project project)
+    {
+        if (id != project.Id || project == null)
+            return BadRequest();
+
+        if(!await _projectService.ProjectExistsAsync(x => x.Id == id))
+            return NotFound();
+
+        await _projectService.UpdateProject(project);
+        return NoContent();
     }
 }
