@@ -1,7 +1,9 @@
-﻿using Business.Dtos;
+﻿using System.Linq.Expressions;
+using Business.Dtos;
 using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using Data.Entities;
 using Data.Interfaces;
 
 namespace Business.Services;
@@ -82,5 +84,15 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
         var entities = await _projectRepository.GetAllAsync();
         var projects = entities.Select(ProjectFactory.Create);
         return projects ?? [];
+    }
+
+    public async Task<Project> GetProjectAsync(Expression<Func<ProjectEntity, bool>> expression)
+    {
+        var entity = await _projectRepository.GetAsync(expression);
+        if (entity == null)
+            return null!;
+
+        var project = ProjectFactory.Create(entity);
+        return project ?? null!;
     }
 }
