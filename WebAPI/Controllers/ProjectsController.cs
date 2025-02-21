@@ -28,14 +28,14 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     {
         var projects = await _projectService.GetAllProjectsAsync();
 
-        if (projects != null)
+        if (projects != null && projects.Any())
             return Ok(projects);
 
         return NotFound();
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var project = await _projectService.GetProjectAsync(x => x.Id == id);
 
@@ -43,5 +43,20 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
             return Ok(project);
 
         return NotFound();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var project = await _projectService.GetProjectAsync(x => x.Id == id);
+        if (project == null)
+            return NotFound();
+
+        await _projectService.DeleteProject(project);
+        project = await _projectService.GetProjectAsync(x => x.Id == id);
+        if (project == null)
+            return NoContent();
+
+        return Problem();
     }
 }

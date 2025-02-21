@@ -10,7 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\DataStorage_Assignment\Data\Databases\database.mdf;Integrated Security=True;Connect Timeout=30"));
+builder.Services.AddDbContext<DataContext>(x =>
+{
+    x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\DataStorage_Assignment\Data\Databases\database.mdf;Integrated Security=True;Connect Timeout=30");
+    x.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 builder.Services.AddScoped<IStatusService, StatusService>();

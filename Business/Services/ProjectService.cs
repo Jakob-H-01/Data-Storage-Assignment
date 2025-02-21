@@ -83,7 +83,7 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
     {
         var entities = await _projectRepository.GetAllAsync();
         var projects = entities.Select(ProjectFactory.Create);
-        return projects ?? [];
+        return projects ?? null!;
     }
 
     public async Task<Project> GetProjectAsync(Expression<Func<ProjectEntity, bool>> expression)
@@ -94,5 +94,11 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
 
         var project = ProjectFactory.Create(entity);
         return project ?? null!;
+    }
+
+    public async Task DeleteProject(Project project)
+    {
+        _projectRepository.Delete(ProjectFactory.Create(project));
+        await _projectRepository.SaveAsync();
     }
 }
