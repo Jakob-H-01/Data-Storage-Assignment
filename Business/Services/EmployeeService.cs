@@ -43,6 +43,9 @@ public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployee
     public async Task<Employee> GetEmployeeAsync(string email)
     {
         var entity = await _employeeRepository.GetAsync(x => x.Email == email);
+        if (entity == null)
+            return null!;
+
         var employee = EmployeeFactory.Create(entity);
         return employee ?? null!;
     }

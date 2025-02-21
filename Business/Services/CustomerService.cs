@@ -43,6 +43,9 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
     public async Task<Customer> GetCustomerAsync(string customerName)
     {
         var entity = await _customerRepository.GetAsync(x => x.CustomerName == customerName);
+        if (entity == null)
+            return null!;
+
         var customer = CustomerFactory.Create(entity);
         return customer ?? null!;
     }

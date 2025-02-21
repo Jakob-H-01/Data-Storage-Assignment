@@ -43,6 +43,9 @@ public class StatusService(IStatusRepository statusRepository) : IStatusService
     public async Task<Status> GetStatusAsync(string statusName)
     {
         var entity = await _statusRepository.GetAsync(x => x.StatusName == statusName);
+        if (entity == null)
+            return null!;
+
         var status = StatusFactory.Create(entity);
         return status ?? null!;
     }

@@ -43,6 +43,9 @@ public class ServiceService(IServiceRepository serviceRepository) : IServiceServ
     public async Task<Service> GetServiceAsync(string serviceName)
     {
         var entity = await _serviceRepository.GetAsync(x => x.ServiceName == serviceName);
+        if (entity == null)
+            return null!;
+
         var service = ServiceFactory.Create(entity);
         return service ?? null!;
     }
