@@ -40,9 +40,9 @@ public class StatusService(IStatusRepository statusRepository) : IStatusService
         return status ?? [];
     }
 
-    public async Task<Status> GetStatusAsync(Expression<Func<StatusEntity, bool>> expression)
+    public async Task<Status> GetStatusAsync(string statusName)
     {
-        var entity = await _statusRepository.GetAsync(expression);
+        var entity = await _statusRepository.GetAsync(x => x.StatusName == statusName);
         var status = StatusFactory.Create(entity);
         return status ?? null!;
     }

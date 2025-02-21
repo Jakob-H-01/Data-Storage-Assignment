@@ -14,11 +14,7 @@ public static class ProjectFactory
         Description = form.Description,
         StartDate = form.StartDate,
         EndDate = form.EndDate,
-        Price = form.Price,
-        StatusId = form.StatusId,
-        ServiceId = form.ServiceId,
-        CustomerId = form.CustomerId,
-        EmployeeId = form.EmployeeId
+        Price = form.Price
     };
 
     public static Project Create(ProjectEntity entity) => new()

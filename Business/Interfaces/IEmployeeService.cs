@@ -11,6 +11,6 @@ public interface IEmployeeService
     bool DeleteEmployee(Employee employee);
     Task<bool> EmployeeExistsAsync(Expression<Func<EmployeeEntity, bool>> expression);
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
-    Task<Employee> GetEmployeeAsync(Expression<Func<EmployeeEntity, bool>> expression);
+    Task<Employee> GetEmployeeAsync(string email);
     bool UpdateEmployee(Employee employee);
 }

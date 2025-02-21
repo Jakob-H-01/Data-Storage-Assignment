@@ -10,7 +10,7 @@ public interface IStatusService
     Task<bool> CreateStatusAsync(StatusRegistrationForm form);
     bool DeleteStatus(Status status);
     Task<IEnumerable<Status>> GetAllStatusAsync();
-    Task<Status> GetStatusAsync(Expression<Func<StatusEntity, bool>> expression);
+    Task<Status> GetStatusAsync(string statusName);
     Task<bool> StatusExistsAsync(Expression<Func<StatusEntity, bool>> expression);
     bool UpdateStatus(Status status);
 }

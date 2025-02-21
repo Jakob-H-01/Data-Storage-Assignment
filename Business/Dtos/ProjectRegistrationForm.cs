@@ -12,13 +12,11 @@ public class ProjectRegistrationForm
 
     public decimal Price { get; set; }
 
-    public int StatusId { get; set; }
+    public StatusRegistrationForm Status { get; set; } = null!;
+    
+    public ServiceRegistrationForm Service { get; set; } = null!;
 
-    public int ServiceId { get; set; }
-
-    public int CustomerId { get; set; }
-
-    public int EmployeeId { get; set; }
+    public EmployeeRegistrationForm Employee { get; set; } = null!;
 
     public CustomerRegistrationForm Customer { get; set; } = null!;
 }

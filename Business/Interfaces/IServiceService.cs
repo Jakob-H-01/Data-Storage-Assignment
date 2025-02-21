@@ -10,7 +10,7 @@ public interface IServiceService
     Task<bool> CreateServiceAsync(ServiceRegistrationForm form);
     bool DeleteService(Service service);
     Task<IEnumerable<Service>> GetAllServicesAsync();
-    Task<Service> GetServiceAsync(Expression<Func<ServiceEntity, bool>> expression);
+    Task<Service> GetServiceAsync(string serviceName);
     Task<bool> ServiceExistsAsync(Expression<Func<ServiceEntity, bool>> expression);
     bool UpdateService(Service service);
 }

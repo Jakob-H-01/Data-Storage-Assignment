@@ -40,9 +40,9 @@ public class ServiceService(IServiceRepository serviceRepository) : IServiceServ
         return services ?? [];
     }
 
-    public async Task<Service> GetServiceAsync(Expression<Func<ServiceEntity, bool>> expression)
+    public async Task<Service> GetServiceAsync(string serviceName)
     {
-        var entity = await _serviceRepository.GetAsync(expression);
+        var entity = await _serviceRepository.GetAsync(x => x.ServiceName == serviceName);
         var service = ServiceFactory.Create(entity);
         return service ?? null!;
     }

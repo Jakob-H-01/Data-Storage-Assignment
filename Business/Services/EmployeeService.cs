@@ -40,9 +40,9 @@ public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployee
         return employees ?? [];
     }
 
-    public async Task<Employee> GetEmployeeAsync(Expression<Func<EmployeeEntity, bool>> expression)
+    public async Task<Employee> GetEmployeeAsync(string email)
     {
-        var entity = await _employeeRepository.GetAsync(expression);
+        var entity = await _employeeRepository.GetAsync(x => x.Email == email);
         var employee = EmployeeFactory.Create(entity);
         return employee ?? null!;
     }

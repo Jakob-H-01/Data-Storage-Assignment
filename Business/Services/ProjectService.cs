@@ -15,6 +15,30 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
 
     public async Task CreateProjectAsync(ProjectRegistrationForm form)
     {
+        var status = await _statusService.GetStatusAsync(form.Status.StatusName);
+        if (status == null)
+        {
+            var result = await _statusService.CreateStatusAsync(form.Status);
+            if (result)
+                status = await _statusService.GetStatusAsync(form.Status.StatusName);
+        }
+
+        var service = await _serviceService.GetServiceAsync(form.Service.ServiceName);
+        if (service == null)
+        {
+            var result = await _serviceService.CreateServiceAsync(form.Service);
+            if (result)
+                service = await _serviceService.GetServiceAsync(form.Service.ServiceName);
+        }
+
+        var employee = await _employeeService.GetEmployeeAsync(form.Employee.Email);
+        if (employee == null)
+        {
+            var result = await _employeeService.CreateEmployeeAsync(form.Employee);
+            if (result)
+                employee = await _employeeService.GetEmployeeAsync(form.Employee.Email);
+        }
+
         var customer = await _customerService.GetCustomerAsync(form.Customer.CustomerName);
         if (customer == null)
         {
@@ -23,13 +47,17 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
                 customer = await _customerService.GetCustomerAsync(form.Customer.CustomerName);
         }
 
-        if (customer != null)
+        if (status != null && service != null && employee != null && customer != null)
         {
             await _projectRepository.BeginTransactionAsync();
 
             try
             {
                 var entity = ProjectFactory.Create(form);
+
+                entity.StatusId = status.Id;
+                entity.ServiceId = service.Id;
+                entity.EmployeeId = employee.Id;
                 entity.CustomerId = customer.Id;
 
                 await _projectRepository.CreateAsync(entity);
