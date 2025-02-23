@@ -10,4 +10,10 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     public DbSet<CustomerEntity> Customers { get; set; }
     public DbSet<EmployeeEntity> Employees { get; set; }
     public DbSet<ProjectEntity> Projects { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies();
+        base.OnConfiguring(optionsBuilder);
+    }
 }

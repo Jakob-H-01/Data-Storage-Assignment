@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Data.Entities;
 
@@ -9,5 +10,6 @@ public class CustomerEntity
 
     public string CustomerName { get; set; } = null!;
 
-    public ICollection<ProjectEntity> Projects { get; set; } = [];
+    [JsonIgnore]
+    public virtual ICollection<ProjectEntity> Projects { get; set; } = [];
 }

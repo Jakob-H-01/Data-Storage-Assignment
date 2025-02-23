@@ -1,6 +1,5 @@
-﻿using Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace Business.Models;
 
@@ -21,9 +20,23 @@ public class Project
 
     public int StatusId { get; set; }
 
+    public string StatusName { get; set; } = null!;
+
     public int ServiceId { get; set; }
+
+    public string ServiceName { get; set; } = null!;
+
+    public decimal ServicePrice { get; set; }
+
+    public int EmployeeId { get; set; }
+
+    public string EmployeeFirstName { get; set; } = null!;
+
+    public string EmployeeLastName { get; set; } = null!;
+
+    public string EmployeeEmail { get; set; } = null!;
 
     public int CustomerId { get; set; }
 
-    public int EmployeeId { get; set; }
+    public string CustomerName { get; set; } = null!;
 }

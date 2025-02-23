@@ -26,9 +26,16 @@ public static class ProjectFactory
         EndDate = entity.EndDate,
         Price = entity.Price,
         StatusId = entity.StatusId,
+        StatusName = entity.Status.StatusName,
         ServiceId = entity.ServiceId,
+        ServiceName = entity.Service.ServiceName,
+        ServicePrice = entity.Service.Price,
+        EmployeeId = entity.EmployeeId,
+        EmployeeFirstName = entity.Employee.FirstName,
+        EmployeeLastName = entity.Employee.LastName,
+        EmployeeEmail = entity.Employee.Email,
         CustomerId = entity.CustomerId,
-        EmployeeId = entity.EmployeeId
+        CustomerName = entity.Customer.CustomerName
     };
 
     public static ProjectEntity Create(Project project) => new()

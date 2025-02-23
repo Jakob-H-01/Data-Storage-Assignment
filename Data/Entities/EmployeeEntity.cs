@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Data.Entities;
 
@@ -13,5 +14,6 @@ public class EmployeeEntity
 
     public string Email { get; set; } = null!;
 
-    public ICollection<ProjectEntity> Projects { get; set; } = [];
+    [JsonIgnore]
+    public virtual ICollection<ProjectEntity> Projects { get; set; } = [];
 }
