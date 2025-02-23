@@ -1,6 +1,7 @@
 ﻿using Business.Dtos;
 using Business.Interfaces;
 using Business.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -11,6 +12,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
 {
     private readonly IProjectService _projectService = projectService;
 
+    [EnableCors("MyPolicy")]
     [HttpPost]
     public async Task<IActionResult> Create(ProjectRegistrationForm form)
     {
@@ -24,6 +26,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         return BadRequest();
     }
 
+    [EnableCors("MyPolicy")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -35,6 +38,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         return NotFound();
     }
 
+    [EnableCors("MyPolicy")]
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
@@ -46,6 +50,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         return NotFound();
     }
 
+    [EnableCors("MyPolicy")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -61,6 +66,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         return Problem();
     }
 
+    [EnableCors("MyPolicy")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Project project)
     {
