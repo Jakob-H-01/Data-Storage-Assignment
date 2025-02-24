@@ -8,8 +8,18 @@ public static class EmployeeFactory
 {
     public static EmployeeRegistrationForm Create() => new();
 
+    public static EmployeeUpdateForm Update() => new();
+
     public static EmployeeEntity Create(EmployeeRegistrationForm form) => new()
     {
+        FirstName = form.FirstName,
+        LastName = form.LastName,
+        Email = form.Email
+    };
+    
+    public static EmployeeEntity Create(EmployeeUpdateForm form) => new()
+    {
+        Id = form.Id,
         FirstName = form.FirstName,
         LastName = form.LastName,
         Email = form.Email

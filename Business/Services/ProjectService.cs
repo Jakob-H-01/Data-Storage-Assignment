@@ -3,6 +3,7 @@ using Business.Dtos;
 using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using Castle.Core.Resource;
 using Data.Entities;
 using Data.Interfaces;
 
@@ -96,26 +97,20 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
         return project ?? null!;
     }
 
-    public async Task UpdateProject(Project project)
+    public async Task UpdateProject(ProjectUpdateForm form)
     {
+        await _statusService.UpdateStatus(form.Status);
+        await _serviceService.UpdateService(form.Service);
+        await _employeeService.UpdateEmployee(form.Employee);
+        await _customerService.UpdateCustomer(form.Customer);
 
-        //var status = await _statusService.GetStatusAsync(project.StatusName);
-        //if (status == null)
-        //{
-        //    var statusForm = StatusFactory.Create();
-        //    statusForm.StatusName = project.StatusName;
-        //    await _statusService.CreateStatusAsync(statusForm);
-        //    status = await _statusService.GetStatusAsync(project.StatusName);
-        //    project.StatusId = status.Id;
-        //}
+        var entity = ProjectFactory.Create(form);
+        entity.StatusId = form.Status.Id;
+        entity.ServiceId = form.Service.Id;
+        entity.EmployeeId = form.Employee.Id;
+        entity.CustomerId = form.Customer.Id;
 
-        _projectRepository.Update(ProjectFactory.Create(project));
-
-        //await _statusService.UpdateStatus(project.Status);
-        //await _serviceService.UpdateService(project.Service);
-        //await _employeeService.UpdateEmployee(project.Employee);
-        //await _customerService.UpdateCustomer(project.Customer);
-
+        _projectRepository.Update(entity);
         await _projectRepository.SaveAsync();
     }
 

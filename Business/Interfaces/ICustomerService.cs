@@ -12,5 +12,5 @@ public interface ICustomerService
     Task DeleteCustomer(Customer customer);
     Task<IEnumerable<Customer>> GetAllCustomersAsync();
     Task<Customer> GetCustomerAsync(string customerName);
-    Task UpdateCustomer(Customer customer);
+    Task UpdateCustomer(CustomerUpdateForm form);
 }

@@ -8,8 +8,16 @@ public static class StatusFactory
 {
     public static StatusRegistrationForm Create() => new();
 
+    public static StatusUpdateForm Update() => new();
+
     public static StatusEntity Create(StatusRegistrationForm form) => new()
     {
+        StatusName = form.StatusName
+    };
+    
+    public static StatusEntity Create(StatusUpdateForm form) => new()
+    {
+        Id = form.Id,
         StatusName = form.StatusName
     };
 

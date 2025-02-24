@@ -8,8 +8,17 @@ public static class ServiceFactory
 {
     public static ServiceRegistrationForm Create() => new();
 
+    public static ServiceUpdateForm Update() => new();
+
     public static ServiceEntity Create(ServiceRegistrationForm form) => new()
     {
+        ServiceName = form.ServiceName,
+        Price = form.Price
+    };
+    
+    public static ServiceEntity Create(ServiceUpdateForm form) => new()
+    {
+        Id = form.Id,
         ServiceName = form.ServiceName,
         Price = form.Price
     };

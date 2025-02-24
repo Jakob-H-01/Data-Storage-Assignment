@@ -8,8 +8,20 @@ public static class ProjectFactory
 {
     public static ProjectRegistrationForm Create() => new();
 
+    public static ProjectUpdateForm Update() => new();
+
     public static ProjectEntity Create(ProjectRegistrationForm form) => new()
     {
+        ProjectName = form.ProjectName,
+        Description = form.Description,
+        StartDate = form.StartDate,
+        EndDate = form.EndDate,
+        Price = form.Price
+    };
+    
+    public static ProjectEntity Create(ProjectUpdateForm form) => new()
+    {
+        Id = form.Id,
         ProjectName = form.ProjectName,
         Description = form.Description,
         StartDate = form.StartDate,

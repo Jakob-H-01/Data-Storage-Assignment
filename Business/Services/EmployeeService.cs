@@ -50,9 +50,9 @@ public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployee
         return employee ?? null!;
     }
 
-    public async Task UpdateEmployee(Employee employee)
+    public async Task UpdateEmployee(EmployeeUpdateForm form)
     {
-        _employeeRepository.Update(EmployeeFactory.Create(employee));
+        _employeeRepository.Update(EmployeeFactory.Create(form));
         await _employeeRepository.SaveAsync();
     }
 

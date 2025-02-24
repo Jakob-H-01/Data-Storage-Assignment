@@ -50,9 +50,9 @@ public class ServiceService(IServiceRepository serviceRepository) : IServiceServ
         return service ?? null!;
     }
 
-    public async Task UpdateService(Service service)
+    public async Task UpdateService(ServiceUpdateForm form)
     {
-        _serviceRepository.Update(ServiceFactory.Create(service));
+        _serviceRepository.Update(ServiceFactory.Create(form));
         await _serviceRepository.SaveAsync();
     }
 

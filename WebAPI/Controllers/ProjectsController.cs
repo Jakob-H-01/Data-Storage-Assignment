@@ -68,15 +68,15 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
 
     [EnableCors("MyPolicy")]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Project project)
+    public async Task<IActionResult> Update(int id, ProjectUpdateForm form)
     {
-        if (id != project.Id || project == null)
+        if (id != form.Id || form == null)
             return BadRequest();
 
         if(!await _projectService.ProjectExistsAsync(x => x.Id == id))
             return NotFound();
 
-        await _projectService.UpdateProject(project);
+        await _projectService.UpdateProject(form);
         return NoContent();
     }
 }

@@ -12,5 +12,5 @@ public interface IStatusService
     Task<IEnumerable<Status>> GetAllStatusAsync();
     Task<Status> GetStatusAsync(string statusName);
     Task<bool> StatusExistsAsync(Expression<Func<StatusEntity, bool>> expression);
-    Task UpdateStatus(Status status);
+    Task UpdateStatus(StatusUpdateForm form);
 }

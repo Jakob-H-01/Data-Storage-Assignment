@@ -12,5 +12,5 @@ public interface IProjectService
     Task<IEnumerable<Project>> GetAllProjectsAsync();
     Task<Project> GetProjectAsync(Expression<Func<ProjectEntity, bool>> expression);
     Task<bool> ProjectExistsAsync(Expression<Func<ProjectEntity, bool>> expression);
-    Task UpdateProject(Project project);
+    Task UpdateProject(ProjectUpdateForm form);
 }

@@ -50,9 +50,9 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
         return customer ?? null!;
     }
 
-    public async Task UpdateCustomer(Customer customer)
+    public async Task UpdateCustomer(CustomerUpdateForm form)
     {
-        _customerRepository.Update(CustomerFactory.Create(customer));
+        _customerRepository.Update(CustomerFactory.Create(form));
         await _customerRepository.SaveAsync();
     }
 

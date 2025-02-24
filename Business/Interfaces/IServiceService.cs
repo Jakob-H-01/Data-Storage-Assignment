@@ -12,5 +12,5 @@ public interface IServiceService
     Task<IEnumerable<Service>> GetAllServicesAsync();
     Task<Service> GetServiceAsync(string serviceName);
     Task<bool> ServiceExistsAsync(Expression<Func<ServiceEntity, bool>> expression);
-    Task UpdateService(Service service);
+    Task UpdateService(ServiceUpdateForm form);
 }

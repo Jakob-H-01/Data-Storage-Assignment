@@ -50,9 +50,9 @@ public class StatusService(IStatusRepository statusRepository) : IStatusService
         return status ?? null!;
     }
 
-    public async Task UpdateStatus(Status status)
+    public async Task UpdateStatus(StatusUpdateForm form)
     {
-        _statusRepository.Update(StatusFactory.Create(status));
+        _statusRepository.Update(StatusFactory.Create(form));
         await _statusRepository.SaveAsync();
     }
 
