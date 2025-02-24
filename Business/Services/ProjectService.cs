@@ -99,16 +99,65 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
 
     public async Task UpdateProject(ProjectUpdateForm form)
     {
-        await _statusService.UpdateStatus(form.Status);
-        await _serviceService.UpdateService(form.Service);
-        await _employeeService.UpdateEmployee(form.Employee);
-        await _customerService.UpdateCustomer(form.Customer);
+        var status = await _statusService.GetStatusAsync(form.Status.StatusName);
+        if (status == null)
+        {
+            var statusForm = StatusFactory.Create();
+            statusForm.StatusName = form.Status.StatusName;
+            await _statusService.CreateStatusAsync(statusForm);
+            status = await _statusService.GetStatusAsync(statusForm.StatusName);
+        } else
+        {
+            await _statusService.UpdateStatus(form.Status);
+        }
+
+        var customer = await _customerService.GetCustomerAsync(form.Customer.CustomerName);
+        if (customer == null)
+        {
+            var customerForm = CustomerFactory.Create();
+            customerForm.CustomerName = form.Customer.CustomerName;
+            await _customerService.CreateCustomerAsync(customerForm);
+            customer = await _customerService.GetCustomerAsync(customerForm.CustomerName);
+        }
+        else
+        {
+            await _customerService.UpdateCustomer(form.Customer);
+        }
+
+        var service = await _serviceService.GetServiceAsync(form.Service.ServiceName);
+        if (service == null)
+        {
+            var serviceForm = ServiceFactory.Create();
+            serviceForm.ServiceName = form.Service.ServiceName;
+            serviceForm.Price = form.Service.Price;
+            await _serviceService.CreateServiceAsync(serviceForm);
+            service = await _serviceService.GetServiceAsync(serviceForm.ServiceName);
+        }
+        else
+        {
+            await _serviceService.UpdateService(form.Service);
+        }
+
+        var employee = await _employeeService.GetEmployeeAsync(form.Employee.Email);
+        if (employee == null)
+        {
+            var employeeForm = EmployeeFactory.Create();
+            employeeForm.Email = form.Employee.Email;
+            employeeForm.FirstName = form.Employee.FirstName;
+            employeeForm.LastName = form.Employee.LastName;
+            await _employeeService.CreateEmployeeAsync(employeeForm);
+            employee = await _employeeService.GetEmployeeAsync(employeeForm.Email);
+        }
+        else
+        {
+            await _employeeService.UpdateEmployee(form.Employee);
+        }
 
         var entity = ProjectFactory.Create(form);
-        entity.StatusId = form.Status.Id;
-        entity.ServiceId = form.Service.Id;
-        entity.EmployeeId = form.Employee.Id;
-        entity.CustomerId = form.Customer.Id;
+        entity.StatusId = status.Id;
+        entity.CustomerId = customer.Id;
+        entity.ServiceId = service.Id;
+        entity.EmployeeId = employee.Id;
 
         _projectRepository.Update(entity);
         await _projectRepository.SaveAsync();
