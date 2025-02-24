@@ -9,8 +9,8 @@ public interface ICustomerService
 {
     Task<bool> CreateCustomerAsync(CustomerRegistrationForm form);
     Task<bool> CustomerExistsAsync(Expression<Func<CustomerEntity, bool>> expression);
-    bool DeleteCustomer(Customer customer);
+    Task DeleteCustomer(Customer customer);
     Task<IEnumerable<Customer>> GetAllCustomersAsync();
     Task<Customer> GetCustomerAsync(string customerName);
-    bool UpdateCustomer(Customer customer);
+    Task UpdateCustomer(Customer customer);
 }

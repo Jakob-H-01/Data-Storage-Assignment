@@ -50,14 +50,16 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
         return customer ?? null!;
     }
 
-    public bool UpdateCustomer(Customer customer)
+    public async Task UpdateCustomer(Customer customer)
     {
-        return _customerRepository.Update(CustomerFactory.Create(customer));
+        _customerRepository.Update(CustomerFactory.Create(customer));
+        await _customerRepository.SaveAsync();
     }
 
-    public bool DeleteCustomer(Customer customer)
+    public async Task DeleteCustomer(Customer customer)
     {
-        return _customerRepository.Delete(CustomerFactory.Create(customer));
+        _customerRepository.Delete(CustomerFactory.Create(customer));
+        await _customerRepository.SaveAsync();
     }
 
     public async Task<bool> CustomerExistsAsync(Expression<Func<CustomerEntity, bool>> expression)

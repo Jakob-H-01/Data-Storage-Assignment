@@ -50,14 +50,16 @@ public class StatusService(IStatusRepository statusRepository) : IStatusService
         return status ?? null!;
     }
 
-    public bool UpdateStatus(Status status)
+    public async Task UpdateStatus(Status status)
     {
-        return _statusRepository.Update(StatusFactory.Create(status));
+        _statusRepository.Update(StatusFactory.Create(status));
+        await _statusRepository.SaveAsync();
     }
 
-    public bool DeleteStatus(Status status)
+    public async Task DeleteStatus(Status status)
     {
-        return _statusRepository.Delete(StatusFactory.Create(status));
+        _statusRepository.Delete(StatusFactory.Create(status));
+        await _statusRepository.SaveAsync();
     }
 
     public async Task<bool> StatusExistsAsync(Expression<Func<StatusEntity, bool>> expression)

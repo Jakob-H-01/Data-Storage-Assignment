@@ -98,7 +98,24 @@ public class ProjectService(IProjectRepository projectRepository, IStatusService
 
     public async Task UpdateProject(Project project)
     {
+
+        //var status = await _statusService.GetStatusAsync(project.StatusName);
+        //if (status == null)
+        //{
+        //    var statusForm = StatusFactory.Create();
+        //    statusForm.StatusName = project.StatusName;
+        //    await _statusService.CreateStatusAsync(statusForm);
+        //    status = await _statusService.GetStatusAsync(project.StatusName);
+        //    project.StatusId = status.Id;
+        //}
+
         _projectRepository.Update(ProjectFactory.Create(project));
+
+        //await _statusService.UpdateStatus(project.Status);
+        //await _serviceService.UpdateService(project.Service);
+        //await _employeeService.UpdateEmployee(project.Employee);
+        //await _customerService.UpdateCustomer(project.Customer);
+
         await _projectRepository.SaveAsync();
     }
 

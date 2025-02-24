@@ -50,14 +50,16 @@ public class ServiceService(IServiceRepository serviceRepository) : IServiceServ
         return service ?? null!;
     }
 
-    public bool UpdateService(Service service)
+    public async Task UpdateService(Service service)
     {
-        return _serviceRepository.Update(ServiceFactory.Create(service));
+        _serviceRepository.Update(ServiceFactory.Create(service));
+        await _serviceRepository.SaveAsync();
     }
 
-    public bool DeleteService(Service service)
+    public async Task DeleteService(Service service)
     {
-        return _serviceRepository.Delete(ServiceFactory.Create(service));
+        _serviceRepository.Delete(ServiceFactory.Create(service));
+        await _serviceRepository.SaveAsync();
     }
 
     public async Task<bool> ServiceExistsAsync(Expression<Func<ServiceEntity, bool>> expression)

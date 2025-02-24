@@ -8,9 +8,9 @@ namespace Business.Interfaces;
 public interface IServiceService
 {
     Task<bool> CreateServiceAsync(ServiceRegistrationForm form);
-    bool DeleteService(Service service);
+    Task DeleteService(Service service);
     Task<IEnumerable<Service>> GetAllServicesAsync();
     Task<Service> GetServiceAsync(string serviceName);
     Task<bool> ServiceExistsAsync(Expression<Func<ServiceEntity, bool>> expression);
-    bool UpdateService(Service service);
+    Task UpdateService(Service service);
 }

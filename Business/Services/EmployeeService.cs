@@ -50,14 +50,16 @@ public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployee
         return employee ?? null!;
     }
 
-    public bool UpdateEmployee(Employee employee)
+    public async Task UpdateEmployee(Employee employee)
     {
-        return _employeeRepository.Update(EmployeeFactory.Create(employee));
+        _employeeRepository.Update(EmployeeFactory.Create(employee));
+        await _employeeRepository.SaveAsync();
     }
 
-    public bool DeleteEmployee(Employee employee)
+    public async Task DeleteEmployee(Employee employee)
     {
-        return _employeeRepository.Delete(EmployeeFactory.Create(employee));
+        _employeeRepository.Delete(EmployeeFactory.Create(employee));
+        await _employeeRepository.SaveAsync();
     }
 
     public async Task<bool> EmployeeExistsAsync(Expression<Func<EmployeeEntity, bool>> expression)
